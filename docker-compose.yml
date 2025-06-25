@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  wanderlust-frontend:
+    container_name: wanderlust-frontend-cont
+    build: ./frontend
+    image: mridul30/wanderlust-frontend:v1
+    env_file: ./frontend/.env.local
+    depends_on:
+      - wanderlust-backend
+    ports:
+      - "5173:5173"
+    networks:
+      - wanderlust-network
+
+  wanderlust-backend:
+    container_name: wanderlust-backend-cont
+    build: ./backend
+    image: mridul30/wanderlust-backend:v1
+    env_file: ./backend/.env
+    environment:
+      - MONGODB_URI=mongodb://mongo-cont:27017/wanderlust
+      - REDIS_URL=redis://redis-cont:6379
+    depends_on:
+      - mongo-cont
+    ports:
+      - "8080:8080"
+    networks:
+      - wanderlust-network
+
+  redis-cont:
+    container_name: redis-cont
+    image: redis:7.0.5-alpine
+    depends_on:
+      - mongo-cont
+    ports:
+      - "6379:6379"
+    networks:
+      - wanderlust-network
+
+  mongo-cont:
+    container_name: mongo-cont
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - wanderlust-network
+
+networks:
+  wanderlust-network:
+    driver: bridge
