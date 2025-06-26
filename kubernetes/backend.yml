@@ -21,6 +21,15 @@ spec:
           image: mridul30/wanderlust-backend:v1
           ports:
             - containerPort: 8080
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 3000
+            fsGroup: 2000
+          resources:
+            limits:
+              nofile: 65535
+            requests:
+              nofile: 65535
           env:
             - name: PORT
               valueFrom:

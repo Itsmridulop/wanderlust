@@ -19,6 +19,15 @@ spec:
           image: mridul30/wanderlust-frontend:v1
           ports:
             - containerPort: 5173
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 3000
+            fsGroup: 2000
+          resources:
+            limits:
+              nofile: 65535
+            requests:
+              nofile: 65535
           env:
             - name: VITE_API_PATH
               valueFrom:
