@@ -1,6 +1,7 @@
 frontend/node_modules
 frontend/.env.local
 backend/.env
+kubernetes/secerts.yml
 backend/node_modules
 /node_modules
 coverage/
