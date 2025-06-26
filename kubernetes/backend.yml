@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wanderlust-backend-deployment
+  namespace: wanderlust
+  labels:
+    app: wanderlust-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wanderlust-backend
+  template:
+    metadata:
+      name: wanderlust-backend-pod
+      labels:
+        app: wanderlust-backend
+    spec:
+      containers:
+        - name: wanderlust-backend-cont
+          image: mridul30/wanderlust-backend:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: PORT
+            - name: ACCESS_COOKIE_MAXAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: ACCESS_COOKIE_MAXAGE
+            - name: ACCESS_TOKEN_EXPIRES_IN
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: ACCESS_TOKEN_EXPIRES_IN
+            - name: REFRESH_COOKIE_MAXAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: REFRESH_COOKIE_MAXAGE
+            - name: REFRESH_TOKEN_EXPIRES_IN
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: REFRESH_TOKEN_EXPIRES_IN
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: wanderlust-secrets
+                  key: MONGODB_URI
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: wanderlust-secrets
+                  key: REDIS_URL
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: wanderlust-secrets
+                  key: FRONTEND_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: wanderlust-secrets
+                  key: JWT_SECRET
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: wanderlust-secrets
+                  key: NODE_ENV
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wanderlust-backend-service
+  namespace: wanderlust
+spec:
+  selector:
+    app: wanderlust-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30001
+  type: NodePort

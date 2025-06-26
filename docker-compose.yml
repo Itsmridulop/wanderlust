@@ -41,6 +41,8 @@ services:
   mongo-cont:
     container_name: mongo-cont
     image: mongo:latest
+    volumes:
+      - ./backend/data:/data
     ports:
       - "27017:27017"
     networks:
@@ -49,3 +51,6 @@ services:
 networks:
   wanderlust-network:
     driver: bridge
+
+volumes:
+  data:

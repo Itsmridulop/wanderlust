@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wanderlustfrontend-deployment
+  namespace: wanderlust
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      name: wanderlust-frontend-pod
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: wanderlust-frontend-cont
+          image: mridul30/wanderlust-frontend:v1
+          ports:
+            - containerPort: 5173
+          env:
+            - name: VITE_API_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: wanderlust-configmap
+                  key: VITE_API_PATH
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wanderlust-frontend-service
+  namespace: wanderlust
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5173
+      nodePort: 30000

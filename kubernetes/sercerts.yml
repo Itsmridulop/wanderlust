@@ -1,0 +1,11 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: wanderlust-secrets
+  namespace: wanderlust
+data:
+  MONGODB_URI: bW9uZ29kYjovL21vbmdvLXNlcnZpY2Uvd2FuZGVybHVzdAo=
+  REDIS_URL: cmVkaXM6Ly9yZWRpcy1zZXJ2aWNlOjYzNzkK
+  FRONTEND_URL: aHR0cDovLzE4LjIyNC43Mi41NDo1MTczCg==
+  JWT_SECRET: NzBkZDhiMzg0ODZlZWU3MjNjZTI1MDVmNmRiMDZmMWVlNTAzZmRlNWViMDZmYzA0Njg3MTkxYTBlZDY2NWYzZjk4Nzc2OTAyZDJjODlmNmI5OTNiMWM1NzlhODdmZWRhZjU4NGM2OTNhMTA2ZjdjYmYxNmU4YjRlNjdlOWQ2ZGYK
+  NODE_ENV: RGV2ZWxvcG1lbnQK

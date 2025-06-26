@@ -13,6 +13,8 @@ All containers need to be on the same network to talk to each other.
 ```bash
 sudo apt update
 sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
 ```
 
 ## 🔗 Step 2: Check Docker is Successfully Installed
@@ -80,4 +82,32 @@ docker compose version
 
 ```bash
 docker-compose up -d
+```
+
+---
+
+This guide walks you through running a full stack application using **Kubernetes**, with the following services:
+
+## 🔗 Step 1: Install Kubernetes
+
+```text
+Run install.sh If kubernetes is not installed
+```
+
+## 🔗 Step 2: Create Cluster
+
+```bash
+kind create cluster --name <CLUSTER_NAME> --config <CONFIG_FILE_PATH>
+```
+
+## 🔗 Step 3: Create namespace
+
+```bash
+kubectl apply -f kubernetes/namespace.yml
+```
+
+## 🔗 Step 4: Create Backend Service
+
+```bash
+kubectl apply -f kubernetes/backend.yml
 ```
