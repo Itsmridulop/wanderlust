@@ -106,8 +106,49 @@ kind create cluster --name <CLUSTER_NAME> --config <CONFIG_FILE_PATH>
 kubectl apply -f kubernetes/namespace.yml
 ```
 
-## 🔗 Step 4: Create Backend Service
+## 🔗 Step 4: Create configMap
+
+```bash
+kubectl apply -f kubernetes/configMap.yml
+```
+
+## 🔗 Step 5: Create secret
+
+```bash
+kubectl apply -f kubernetes/secret.yml
+```
+## 🔗 Step 6: Create PersistentVolume
+
+```bash
+kubectl apply -f kubernetes/mongo-pv.yml
+```
+
+## 🔗 Step 7: Create PersistentVolumeClaim
+
+```bash
+kubectl apply -f kubernetes/mongo-pvc.yml
+```
+
+## 🔗 Step 8: Create Mongo Service
+
+```bash
+kubectl apply -f kubernetes/mongo.yml
+```
+
+## 🔗 Step 9: Create Redis Service
+
+```bash
+kubectl apply -f kubernetes/redis.yml
+```
+
+## 🔗 Step 10: Create Backend Service
 
 ```bash
 kubectl apply -f kubernetes/backend.yml
+```
+
+## 🔗 Step 11: Create Frontend Service
+
+```bash
+kubectl apply -f kubernetes/frontend.yml
 ```
